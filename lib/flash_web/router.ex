@@ -17,7 +17,7 @@ defmodule FlashWeb.Router do
   scope "/", FlashWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/example", PageLive, :index
   end
 
   # Other scopes may use custom stacks.

@@ -25,13 +25,11 @@ defmodule FlashWeb.SecretController do
   end
 
   def reveal(conn, %{"id" => id}) do
-    case Secrets.fetch_secret(id) do
-      {:ok, text} ->
-        Secrets.delete_secret!(id)
-        render(conn, "show.html", secret: text)
-
-      {:error, :not_found} ->
-        render(conn, "not_found.html")
+    if text = Secrets.get_secret(id) do
+      Secrets.delete_secret!(id)
+      render(conn, "show.html", secret: text)
+    else
+      render(conn, "not_found.html")
     end
   end
 end

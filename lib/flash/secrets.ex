@@ -26,14 +26,8 @@ defmodule Flash.Secrets do
     id
   end
 
-  def fetch_secret(id) do
-    case Redix.command!(Redix, ["GET", key(id)]) do
-      nil ->
-        {:error, :not_found}
-
-      text ->
-        {:ok, text}
-    end
+  def get_secret(id) do
+    Redix.command!(Redix, ["GET", key(id)])
   end
 
   def delete_secret!(id) do

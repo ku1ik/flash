@@ -9,6 +9,8 @@ defmodule Flash.Application do
     children = [
       # Start the Telemetry supervisor
       FlashWeb.Telemetry,
+      # Start Redis connection
+      {Redix, redis_opts()},
       # Start the PubSub system
       {Phoenix.PubSub, name: Flash.PubSub},
       # Start the Endpoint (http/https)
@@ -28,5 +30,14 @@ defmodule Flash.Application do
   def config_change(changed, _new, removed) do
     FlashWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp redis_opts do
+    redis_cfg = URI.parse(Application.get_env(:flash, :redis_url))
+    redis_host = redis_cfg.host
+    redis_port = redis_cfg.port
+    redis_db = String.slice(to_string(redis_cfg.path), 1, 2)
+
+    [host: redis_host, port: redis_port, database: redis_db, name: Redix]
   end
 end

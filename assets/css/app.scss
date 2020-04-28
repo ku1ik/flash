@@ -1,91 +1,92 @@
-/* This file is for your main application css. */
-@import "./phoenix.css";
-@import "../node_modules/nprogress/nprogress.css";
+@import "./normalize.css";
 
-/* LiveView specific classes for your customizations */
-.invalid-feedback {
-  color: #a94442;
-  display: block;
-  margin: -1rem 0 2rem;
+html {
+  font-size: 13pt;
 }
 
-.phx-no-feedback.invalid-feedback, .phx-no-feedback .invalid-feedback {
-  display: none;
+html, body, div, p, span, input, textarea, select, button {
+    font-family: sans-serif;
 }
 
-.phx-click-loading {
-  opacity: 0.5;
-  transition: opacity 1s ease-out;
+body, div, p, span, input, textarea, select, button {
+    font-size: 1em;
 }
 
-.phx-disconnected{
-  cursor: wait;
-}
-.phx-disconnected *{
-  pointer-events: none;
+h1, h2, h3 {
+    font-weight: bold;
 }
 
-.phx-modal {
-  opacity: 1!important;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+h1 {
+    font-size: 2em;
 }
 
-.phx-modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+h2 {
+    font-size: 1.5em;
 }
 
-.phx-modal-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+h3 {
+    font-size: 1em;
 }
 
-.phx-modal-close:hover,
-.phx-modal-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+body {
+    padding: 2em;
 }
 
-
-/* Alerts and form errors */
-.alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+p {
+    margin: 0 0 2em 0;
 }
+
 .alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+    color: green;
 }
-.alert-warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc;
-}
+
 .alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+    color: red;
 }
-.alert p {
-  margin-bottom: 0;
+
+a {
+    color: #552346;
 }
-.alert:empty {
-  display: none;
+
+input[type=submit], button {
+    color: #eee;
+    background-color: #653356;
+    padding: 0.5em;
+    border: 0;
+    border-radius: 0.2em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type=submit]:hover, button:hover {
+    color: #fff;
+    background-color: #552346;
+}
+
+textarea {
+    padding: 0.5em;
+}
+
+pre {
+    background-color: #eee;
+    padding: 1em;
+    margin: 0 0 2em 0;
+    overflow: auto;
+    white-space: pre-wrap;
+}
+
+hr {
+    margin: 2em 0 2em 0;
+}
+
+form {
+    label {
+        margin: 0 0 0.5em 0;
+        display: block;
+    }
+
+    textarea, select, button {
+        margin: 0 0 2em 0;
+        display: block;
+    }
 }

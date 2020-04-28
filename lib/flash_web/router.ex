@@ -4,8 +4,7 @@ defmodule FlashWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {FlashWeb.LayoutView, :root}
+    plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -16,6 +15,11 @@ defmodule FlashWeb.Router do
 
   scope "/", FlashWeb do
     pipe_through :browser
+
+    get "/", SecretController, :new
+    post "/", SecretController, :create
+    get "/s/:id", SecretController, :preview
+    post "/s/:id", SecretController, :reveal
 
     live "/example", PageLive, :index
   end

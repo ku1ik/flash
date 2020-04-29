@@ -15,8 +15,8 @@ defmodule FlashWeb.SecretController do
         |> put_flash(:info, "Secret created successfully.")
         |> redirect(to: Routes.secret_path(conn, :preview, id))
 
-      {:error, reason} ->
-        render(conn, "new.html", error: reason)
+      {:error, :invalid} ->
+        render(conn, "new.html", error: true)
     end
   end
 

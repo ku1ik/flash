@@ -21,3 +21,9 @@ let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToke
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()
+
+let urlInput = document.querySelector("input[type='url']");
+
+if (urlInput) {
+    urlInput.select();
+}

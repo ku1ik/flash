@@ -24,9 +24,13 @@ defmodule FlashWeb.SecretController do
   def preview(conn, %{"id" => id}) do
     url = Routes.secret_url(conn, :preview, id)
 
-    conn
-    |> assign_active_secret_ids()
-    |> render("preview.html", id: id, url: url)
+    if Secrets.get_secret(id) do
+      conn
+      |> assign_active_secret_ids()
+      |> render("preview.html", id: id, url: url)
+    else
+      render(conn, "not_found.html")
+    end
   end
 
   def reveal(conn, %{"id" => id}) do

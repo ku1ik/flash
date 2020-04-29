@@ -3,7 +3,7 @@ defmodule FlashWeb.SecretController do
   alias Flash.Secrets
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    render(conn, "new.html", default_ttl: get_default_ttl(conn))
   end
 
   def create(conn, %{"secret" => %{"text" => text} = secret}) do
@@ -13,11 +13,12 @@ defmodule FlashWeb.SecretController do
       {:ok, id} ->
         conn
         |> save_secret_id(id)
+        |> save_default_ttl(ttl)
         |> put_flash(:info, "Your secret was securely saved.")
         |> redirect(to: Routes.secret_path(conn, :preview, id))
 
       {:error, :invalid} ->
-        render(conn, "new.html", error: true)
+        render(conn, "new.html", default_ttl: get_default_ttl(conn), error: true)
     end
   end
 
@@ -53,6 +54,14 @@ defmodule FlashWeb.SecretController do
       end
 
     put_resp_cookie(conn, "secret_ids", secret_ids)
+  end
+
+  def save_default_ttl(conn, ttl) do
+    put_resp_cookie(conn, "default_ttl", to_string(ttl))
+  end
+
+  def get_default_ttl(conn) do
+    String.to_integer(conn.req_cookies["default_ttl"] || "3600")
   end
 
   defp assign_active_secret_ids(conn) do

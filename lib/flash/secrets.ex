@@ -18,28 +18,28 @@ defmodule Flash.Secrets do
   defp do_create_secret(plain_text, ttl) do
     id = Nanoid.generate()
     payload = encrypt(plain_text)
-    Redix.command!(Redix, ["SET", key(id), payload])
+    Redix.command!(Redix, ["SET", redis_key_name(id), payload])
 
     if ttl do
-      Redix.command!(Redix, ["EXPIRE", key(id), ttl])
+      Redix.command!(Redix, ["EXPIRE", redis_key_name(id), ttl])
     end
 
     id
   end
 
   def get_secret(id) do
-    if payload = Redix.command!(Redix, ["GET", key(id)]) do
+    if payload = Redix.command!(Redix, ["GET", redis_key_name(id)]) do
       decrypt(payload)
     end
   end
 
   def delete_secret!(id) do
-    Redix.command!(Redix, ["DEL", key(id)])
+    Redix.command!(Redix, ["DEL", redis_key_name(id)])
 
     :ok
   end
 
-  defp key(id), do: "secret:" <> id
+  defp redis_key_name(id), do: "secret:" <> id
 
   @aad "AES256GCM"
 

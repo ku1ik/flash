@@ -63,6 +63,12 @@ input[type=submit]:hover, button:hover {
     background-color: #552346;
 }
 
+input[type=url] {
+    width: 100%;
+    max-width: 40em;
+    padding: 0.5em;
+}
+
 textarea {
     padding: 0.5em;
 }

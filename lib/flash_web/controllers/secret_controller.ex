@@ -13,7 +13,7 @@ defmodule FlashWeb.SecretController do
       {:ok, id} ->
         conn
         |> remember_secret_id(id)
-        |> put_flash(:info, "Secret created successfully.")
+        |> put_flash(:info, "Your secret was securely saved.")
         |> redirect(to: Routes.secret_path(conn, :preview, id))
 
       {:error, :invalid} ->

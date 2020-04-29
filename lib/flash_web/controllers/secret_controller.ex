@@ -12,7 +12,7 @@ defmodule FlashWeb.SecretController do
     case Secrets.add_secret(text, ttl) do
       {:ok, id} ->
         conn
-        |> remember_secret_id(id)
+        |> save_secret_id(id)
         |> put_flash(:info, "Your secret was securely saved.")
         |> redirect(to: Routes.secret_path(conn, :preview, id))
 
@@ -42,7 +42,7 @@ defmodule FlashWeb.SecretController do
     end
   end
 
-  defp remember_secret_id(conn, id) do
+  defp save_secret_id(conn, id) do
     secret_ids =
       case conn.req_cookies["secret_ids"] do
         nil ->

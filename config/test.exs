@@ -8,3 +8,5 @@ config :flash, FlashWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :flash, redis_url: System.get_env("TEST_REDIS_URL", "redis://localhost:6379/1")

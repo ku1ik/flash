@@ -12,7 +12,7 @@ defmodule Flash.Secrets do
   end
 
   defp valid?(text) do
-    String.trim(text) != ""
+    String.trim(text) != "" && String.length(text) < 100_000
   end
 
   defp do_create_secret(plain_text, ttl) do

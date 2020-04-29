@@ -53,11 +53,13 @@ defmodule FlashWeb.SecretController do
           secret_ids <> "|" <> id
       end
 
-    put_resp_cookie(conn, "secret_ids", secret_ids)
+    save_secret_ids_cookie(conn, secret_ids)
   end
 
+  @year_in_seconds 3600 * 24 * 365
+
   def save_default_ttl(conn, ttl) do
-    put_resp_cookie(conn, "default_ttl", to_string(ttl))
+    put_resp_cookie(conn, "default_ttl", to_string(ttl), max_age: @year_in_seconds)
   end
 
   def get_default_ttl(conn) do
@@ -79,13 +81,24 @@ defmodule FlashWeb.SecretController do
           [] ->
             conn
             |> assign(:active_secret_ids, [])
-            |> delete_resp_cookie("secret_ids")
+            |> clear_secret_ids_cookie()
 
           ids ->
             conn
             |> assign(:active_secret_ids, ids)
-            |> put_resp_cookie("secret_ids", Enum.join(ids, "|"))
+            |> save_secret_ids_cookie(Enum.join(ids, "|"))
         end
     end
+  end
+
+  @secret_ids_cookie "secret_ids"
+  @week_in_seconds 3600 * 24 * 7
+
+  defp save_secret_ids_cookie(conn, value) do
+    put_resp_cookie(conn, @secret_ids_cookie, value, max_age: @week_in_seconds)
+  end
+
+  defp clear_secret_ids_cookie(conn) do
+    delete_resp_cookie(conn, @secret_ids_cookie)
   end
 end

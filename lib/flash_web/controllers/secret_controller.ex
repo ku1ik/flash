@@ -9,7 +9,7 @@ defmodule FlashWeb.SecretController do
   def create(conn, %{"secret" => %{"text" => text} = secret}) do
     ttl = String.to_integer(secret["ttl"] || "3600")
 
-    case Secrets.create_secret(text, ttl) do
+    case Secrets.add_secret(text, ttl) do
       {:ok, id} ->
         conn
         |> put_flash(:info, "Secret created successfully.")
@@ -26,7 +26,7 @@ defmodule FlashWeb.SecretController do
 
   def reveal(conn, %{"id" => id}) do
     if text = Secrets.get_secret(id) do
-      Secrets.delete_secret!(id)
+      Secrets.burn_secret!(id)
       render(conn, "show.html", secret: text)
     else
       render(conn, "not_found.html")

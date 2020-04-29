@@ -3,9 +3,9 @@ defmodule Flash.Secrets do
   The Secrets context.
   """
 
-  def create_secret(text, ttl \\ nil) do
+  def add_secret(text, ttl \\ nil) do
     if valid?(text) do
-      {:ok, do_create_secret(text, ttl)}
+      {:ok, do_add_secret(text, ttl)}
     else
       {:error, :invalid}
     end
@@ -15,7 +15,7 @@ defmodule Flash.Secrets do
     String.trim(text) != "" && String.length(text) < 100_000
   end
 
-  defp do_create_secret(plain_text, ttl) do
+  defp do_add_secret(plain_text, ttl) do
     id = Nanoid.generate()
     payload = encrypt(plain_text)
     Redix.command!(Redix, ["SET", redis_key_name(id), payload])
@@ -33,7 +33,7 @@ defmodule Flash.Secrets do
     end
   end
 
-  def delete_secret!(id) do
+  def burn_secret!(id) do
     Redix.command!(Redix, ["DEL", redis_key_name(id)])
 
     :ok

@@ -36,6 +36,15 @@ p {
     margin: 0 0 2em 0;
 }
 
+p.hint {
+    color: #888;
+    font-size: 0.75em;
+}
+
+textarea + p.hint {
+    margin-top: -2em;
+}
+
 .alert-info {
     color: green;
 }

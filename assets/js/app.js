@@ -27,3 +27,13 @@ let urlInput = document.querySelector("input[type='url']");
 if (urlInput) {
     urlInput.select();
 }
+
+let secretTextInput = document.getElementById("secret-text");
+
+if (secretTextInput) {
+    secretTextInput.addEventListener('keydown', function(e) {
+        if (e.keyCode == 13 && e.metaKey) {
+            this.form.submit();
+        }
+    })
+}

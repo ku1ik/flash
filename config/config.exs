@@ -18,6 +18,8 @@ config :flash, FlashWeb.Endpoint,
 config :flash,
   encryption_key: "lFWk6IgHHqLGq/13wHOjfMRp8hrtzO08"
 
+config :phoenix, :json_library, Jason
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

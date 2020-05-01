@@ -1,0 +1,7 @@
+.elixir_ls
+.git
+.gitignore
+_build
+assets/node_modules
+deps
+test

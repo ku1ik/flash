@@ -1,5 +1,6 @@
 defmodule FlashWeb.Router do
   use FlashWeb, :router
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -29,19 +30,27 @@ defmodule FlashWeb.Router do
   #   pipe_through :api
   # end
 
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
-  if Mix.env() in [:dev, :test] do
-    import Phoenix.LiveDashboard.Router
+  pipeline :admin do
+    plug :browser
+    plug :auth
+  end
 
-    scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: FlashWeb.Telemetry
+  scope "/admin" do
+    pipe_through :admin
+
+    live_dashboard "/dashboard", metrics: FlashWeb.Telemetry
+  end
+
+  defp auth(conn, _opts) do
+    import Plug.BasicAuth
+    import Plug.Crypto
+
+    with {user, pass} <- parse_basic_auth(conn),
+         true <- secure_compare(user, Application.fetch_env!(:flash, :admin_username)),
+         true <- secure_compare(pass, Application.fetch_env!(:flash, :admin_password)) do
+      conn
+    else
+      _ -> conn |> request_basic_auth() |> halt()
     end
   end
 end

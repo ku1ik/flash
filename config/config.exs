@@ -16,7 +16,9 @@ config :flash, FlashWeb.Endpoint,
   live_view: [signing_salt: "Tyqw5Lq3"]
 
 config :flash,
-  encryption_key: "lFWk6IgHHqLGq/13wHOjfMRp8hrtzO08"
+  encryption_key: "lFWk6IgHHqLGq/13wHOjfMRp8hrtzO08",
+  admin_username: "admin",
+  admin_password: "admin"
 
 config :phoenix, :json_library, Jason
 

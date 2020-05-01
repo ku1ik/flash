@@ -11,6 +11,7 @@ config :flash, FlashWeb.Endpoint,
     transport_options: [socket_opts: [:inet6]]
   ],
   url: [
+    scheme: env.("URL_SCHEME") || "https",
     host: env.("URL_HOST") || "localhost",
     port: String.to_integer(env.("URL_PORT") || "443")
   ],

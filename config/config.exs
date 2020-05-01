@@ -15,6 +15,9 @@ config :flash, FlashWeb.Endpoint,
   pubsub_server: Flash.PubSub,
   live_view: [signing_salt: "Tyqw5Lq3"]
 
+config :flash,
+  encryption_key: "lFWk6IgHHqLGq/13wHOjfMRp8hrtzO08"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

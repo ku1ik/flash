@@ -60,14 +60,6 @@ defmodule Flash.Secrets do
   end
 
   defp encryption_key do
-    key =
-      :flash
-      |> Application.get_env(FlashWeb.Endpoint)
-      |> Keyword.get(:secret_key_base)
-      |> Base.decode64!()
-
-    <<key::binary-size(32), _rest::binary>> = key
-
-    key
+    Application.get_env(:flash, :encryption_key)
   end
 end

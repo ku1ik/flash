@@ -7,7 +7,8 @@ defmodule FlashWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_flash_key",
-    signing_salt: "hjMIGqmp"
+    signing_salt: "hjMIGqmp",
+    extra: "SameSite=Lax"
   ]
 
   socket "/socket", FlashWeb.UserSocket,

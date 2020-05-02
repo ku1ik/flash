@@ -91,14 +91,15 @@ defmodule FlashWeb.SecretController do
     end
   end
 
-  @secret_ids_cookie "secret_ids"
   @week_in_seconds 3600 * 24 * 7
+  @ids_cookie_name "secret_ids"
+  @ids_cookie_opts [max_age: @week_in_seconds, extra: "SameSite=Lax"]
 
   defp save_secret_ids_cookie(conn, value) do
-    put_resp_cookie(conn, @secret_ids_cookie, value, max_age: @week_in_seconds)
+    put_resp_cookie(conn, @ids_cookie_name, value, @ids_cookie_opts)
   end
 
   defp clear_secret_ids_cookie(conn) do
-    delete_resp_cookie(conn, @secret_ids_cookie)
+    delete_resp_cookie(conn, @ids_cookie_name)
   end
 end

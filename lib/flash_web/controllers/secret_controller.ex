@@ -11,7 +11,10 @@ defmodule FlashWeb.SecretController do
   plug :fetch_cookies, signed: [@ids_cookie_name]
 
   def new(conn, _params) do
-    render(conn, "new.html", default_ttl: get_default_ttl(conn))
+    render(conn, "new.html",
+      ttl_options: Application.fetch_env!(:flash, :ttl_options),
+      default_ttl: get_default_ttl(conn)
+    )
   end
 
   def create(conn, %{"secret" => %{"text" => text} = secret}) do
@@ -26,7 +29,9 @@ defmodule FlashWeb.SecretController do
         |> redirect(to: Routes.secret_path(conn, :preview, id))
 
       {:error, :invalid} ->
-        render(conn, "new.html", default_ttl: get_default_ttl(conn), error: true)
+        conn
+        |> assign(:error, true)
+        |> new(%{})
     end
   end
 

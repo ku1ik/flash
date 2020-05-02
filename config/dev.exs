@@ -56,7 +56,19 @@ config :flash, FlashWeb.Endpoint,
     ]
   ]
 
-config :flash, redis_url: System.get_env("REDIS_URL", "redis://localhost:6379/0")
+config :flash,
+  redis_url: System.get_env("REDIS_URL", "redis://localhost:6379/0"),
+  ttl_options: [
+    {"10 seconds", 10},
+    {"5 minutes", 300},
+    {"30 minutes", 1800},
+    {"1 hour", 3600},
+    {"4 hours", 14400},
+    {"12 hours", 43200},
+    {"1 day", 86400},
+    {"3 days", 259200},
+    {"7 days", 604800}
+  ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

@@ -2,6 +2,13 @@ defmodule FlashWeb.SecretController do
   use FlashWeb, :controller
   alias Flash.Secrets
 
+  @year_in_seconds 3600 * 24 * 365
+  @week_in_seconds 3600 * 24 * 7
+  @ids_cookie_name "secret_ids"
+  @ids_cookie_opts [max_age: @week_in_seconds, extra: "SameSite=Lax", sign: true]
+
+  plug :fetch_cookies, signed: [@ids_cookie_name]
+
   def new(conn, _params) do
     render(conn, "new.html", default_ttl: get_default_ttl(conn))
   end
@@ -45,7 +52,7 @@ defmodule FlashWeb.SecretController do
 
   defp save_secret_id(conn, id) do
     secret_ids =
-      case conn.req_cookies["secret_ids"] do
+      case conn.cookies["secret_ids"] do
         nil ->
           id
 
@@ -56,18 +63,16 @@ defmodule FlashWeb.SecretController do
     save_secret_ids_cookie(conn, secret_ids)
   end
 
-  @year_in_seconds 3600 * 24 * 365
-
   def save_default_ttl(conn, ttl) do
     put_resp_cookie(conn, "default_ttl", to_string(ttl), max_age: @year_in_seconds)
   end
 
   def get_default_ttl(conn) do
-    String.to_integer(conn.req_cookies["default_ttl"] || "3600")
+    String.to_integer(conn.cookies["default_ttl"] || "3600")
   end
 
   defp assign_active_secret_ids(conn) do
-    case conn.req_cookies["secret_ids"] do
+    case conn.cookies["secret_ids"] do
       nil ->
         assign(conn, :active_secret_ids, [])
 
@@ -90,10 +95,6 @@ defmodule FlashWeb.SecretController do
         end
     end
   end
-
-  @week_in_seconds 3600 * 24 * 7
-  @ids_cookie_name "secret_ids"
-  @ids_cookie_opts [max_age: @week_in_seconds, extra: "SameSite=Lax"]
 
   defp save_secret_ids_cookie(conn, value) do
     put_resp_cookie(conn, @ids_cookie_name, value, @ids_cookie_opts)

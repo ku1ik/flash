@@ -47,6 +47,7 @@ defmodule Flash.MixProject do
       {:nanoid, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:plug_attack, "~> 0.4.2"},
+      {:remote_ip, "~> 0.2.1"},
       {:redix, "~> 0.10.5"}
     ]
   end

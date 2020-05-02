@@ -20,7 +20,11 @@ config :flash, FlashWeb.Endpoint,
 config :flash,
   encryption_key: String.slice(env.("ENCRYPTION_KEY") || secret_key_base, 0..31),
   admin_username: env.("ADMIN_USERNAME") || "admin",
-  admin_password: env.("ADMIN_PASSWORD") || Base.encode64(:crypto.strong_rand_bytes(32))
+  admin_password: env.("ADMIN_PASSWORD") || Base.encode64(:crypto.strong_rand_bytes(32)),
+
+if ttl = env.("DEFAULT_TTL") do
+  config :flash, default_ttl: String.to_integer(ttl)
+end
 
 if redis_url = env.("REDIS_URL") do
   config :flash, redis_url: redis_url

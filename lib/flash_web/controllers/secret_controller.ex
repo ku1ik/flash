@@ -69,7 +69,13 @@ defmodule FlashWeb.SecretController do
   end
 
   def get_default_ttl(conn) do
-    String.to_integer(conn.cookies["default_ttl"] || "3600")
+    case conn.cookies["default_ttl"] do
+      nil ->
+        Application.fetch_env!(:flash, :default_ttl)
+
+      ttl ->
+        String.to_integer(ttl)
+    end
   end
 
   defp assign_active_secret_ids(conn) do

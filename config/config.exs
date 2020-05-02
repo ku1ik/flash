@@ -18,7 +18,8 @@ config :flash, FlashWeb.Endpoint,
 config :flash,
   encryption_key: "lFWk6IgHHqLGq/13wHOjfMRp8hrtzO08",
   admin_username: "admin",
-  admin_password: "admin"
+  admin_password: "admin",
+  default_ttl: 3600
 
 config :phoenix,
   json_library: Jason,

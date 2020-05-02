@@ -20,7 +20,9 @@ config :flash,
   admin_username: "admin",
   admin_password: "admin"
 
-config :phoenix, :json_library, Jason
+config :phoenix,
+  json_library: Jason,
+  filter_parameters: ["password", "text"]
 
 # Configures Elixir's Logger
 config :logger, :console,

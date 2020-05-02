@@ -15,6 +15,8 @@ defmodule Flash.Application do
       %{id: Redix, start: {Redix, :start_link, [redis_url, [name: Redix]]}},
       # Start the PubSub system
       {Phoenix.PubSub, name: Flash.PubSub},
+      # Start rate limiter
+      {PlugAttack.Storage.Ets, name: FlashWeb.PlugAttack.Storage, clean_period: 60_000},
       # Start the Endpoint (http/https)
       FlashWeb.Endpoint
       # Start a worker by calling: Flash.Worker.start_link(arg)

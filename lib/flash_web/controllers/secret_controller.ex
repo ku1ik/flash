@@ -7,6 +7,7 @@ defmodule FlashWeb.SecretController do
   @ids_cookie_name "secret_ids"
   @ids_cookie_opts [max_age: @week_in_seconds, extra: "SameSite=Lax", sign: true]
 
+  plug FlashWeb.PlugAttack
   plug :fetch_cookies, signed: [@ids_cookie_name]
 
   def new(conn, _params) do

@@ -46,6 +46,7 @@ defmodule Flash.MixProject do
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:nanoid, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:plug_attack, "~> 0.4.2"},
       {:redix, "~> 0.10.5"}
     ]
   end

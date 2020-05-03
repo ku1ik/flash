@@ -22,8 +22,6 @@ defmodule Flash.Application do
       {PlugAttack.Storage.Ets, name: FlashWeb.PlugAttack.Storage, clean_period: 60_000},
       # Start the Endpoint (http/https)
       FlashWeb.Endpoint
-      # Start a worker by calling: Flash.Worker.start_link(arg)
-      # {Flash.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

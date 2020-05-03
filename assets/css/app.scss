@@ -40,6 +40,10 @@ p.hint {
     color: #888;
     font-size: 0.75em;
 
+    &.success {
+        color: green;
+    }
+
     kbd {
         font-family: inherit;
         color: #fff;
@@ -49,8 +53,8 @@ p.hint {
     }
 }
 
-textarea + p.hint, input[type=url] + p.hint, p + p.hint {
-    margin-top: -2em;
+textarea + p.hint, div.url + p.hint, p + p.hint {
+    margin-top: -1em;
 }
 
 .alert-info {
@@ -80,23 +84,27 @@ input[type=submit]:hover, button:hover {
     background-color: #552346;
 }
 
-input[type=url] {
-    width: 100%;
-    max-width: 40em;
-    background-color: #eee;
-    border: 0;
-    font-family: monospace;
-    padding: 1em;
-    margin: 0 0 2em 0;
-    box-sizing: border-box;
-}
+.url {
+    margin: 0 0 1em 0;
 
-input[type=url]:focus {
-    outline: none;
+    span {
+        background-color: #eee;
+        border-radius: 0.2em;
+        font-family: monospace;
+        padding: 0.5em;
+        margin: 0 0.5em 1em 0;
+        box-sizing: border-box;
+        display: inline-block;
+    }
+
+    button:focus {
+        outline: none;
+    }
 }
 
 textarea {
     padding: 0.5em;
+    border-radius: 0.2em;
 }
 
 pre {

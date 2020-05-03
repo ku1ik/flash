@@ -22,10 +22,29 @@ let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToke
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 
-let urlInput = document.querySelector("input[type='url']");
+let urlElement = document.querySelector("#url");
 
-if (urlInput) {
-    urlInput.select();
+if (urlElement) {
+    let hint = document.querySelector(".hint");
+    let copyButton = document.querySelector("#copy");
+
+    function copyUrlToClipboard() {
+        window.getSelection().selectAllChildren(urlElement);
+        document.execCommand("copy");
+        hint.textContent = "Copied!";
+        hint.className = 'hint success';
+        window.getSelection().removeAllRanges();
+    }
+
+    copyButton.addEventListener('click', () => {
+        copyUrlToClipboard();
+    })
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key == 'c' && !e.metaKey && !e.shiftKey && !e.altKey && !e.ctrlKey) {
+            copyUrlToClipboard();
+        }
+    })
 }
 
 let secretTextInput = document.getElementById("secret_text");

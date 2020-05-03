@@ -17,6 +17,7 @@ config :flash, FlashWeb.Endpoint,
 
 config :flash,
   encryption_key: "lFWk6IgHHqLGq/13wHOjfMRp8hrtzO08",
+  secrets_store: Flash.Secrets.Store.Redis,
   admin_username: "admin",
   admin_password: "admin",
   ttl_options: [

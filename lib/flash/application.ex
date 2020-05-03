@@ -6,13 +6,11 @@ defmodule Flash.Application do
   use Application
 
   def start(_type, _args) do
-    redis_url = Application.get_env(:flash, :redis_url)
-
     children = [
       # Start the Telemetry supervisor
       FlashWeb.Telemetry,
-      # Start Redis connection
-      %{id: Redix, start: {Redix, :start_link, [redis_url, [name: Redix]]}},
+      # Start secrets store
+      Flash.Secrets.store_child_spec(),
       # Start the PubSub system
       {Phoenix.PubSub, name: Flash.PubSub},
       # Start rate limiter

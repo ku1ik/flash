@@ -3,6 +3,8 @@ defmodule Flash.Secrets do
   The Secrets context.
   """
 
+  def store_child_spec, do: store().child_spec()
+
   def add_secret(text, ttl \\ nil) do
     if valid?(text) do
       {:ok, do_add_secret(text, ttl)}
@@ -18,28 +20,20 @@ defmodule Flash.Secrets do
   defp do_add_secret(plain_text, ttl) do
     id = Nanoid.generate()
     payload = encrypt(plain_text)
-    Redix.command!(Redix, ["SET", redis_key_name(id), payload])
-
-    if ttl do
-      Redix.command!(Redix, ["EXPIRE", redis_key_name(id), ttl])
-    end
+    store().put_secret(id, payload, ttl)
 
     id
   end
 
   def get_secret(id) do
-    if payload = Redix.command!(Redix, ["GET", redis_key_name(id)]) do
+    if payload = store().get_secret(id) do
       decrypt(payload)
     end
   end
 
   def burn_secret!(id) do
-    Redix.command!(Redix, ["DEL", redis_key_name(id)])
-
-    :ok
+    store().delete_secret(id)
   end
-
-  defp redis_key_name(id), do: "secret:" <> id
 
   @aad "AES256GCM"
 
@@ -62,4 +56,6 @@ defmodule Flash.Secrets do
   defp encryption_key do
     Application.get_env(:flash, :encryption_key)
   end
+
+  defp store, do: Application.fetch_env!(:flash, :secrets_store)
 end

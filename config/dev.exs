@@ -1,5 +1,7 @@
 use Mix.Config
 
+env = &System.get_env/1
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -57,7 +59,6 @@ config :flash, FlashWeb.Endpoint,
   ]
 
 config :flash,
-  redis_url: System.get_env("REDIS_URL", "redis://localhost:6379/0"),
   ttl_options: [
     {"10 seconds", 10},
     {"5 minutes", 300},
@@ -69,6 +70,12 @@ config :flash,
     {"3 days", 259200},
     {"7 days", 604800}
   ]
+
+if redis_url = env.("REDIS_URL") do
+  config :flash,
+    secrets_store: Flash.Secrets.Store.Redis,
+    redis_url: redis_url
+end
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

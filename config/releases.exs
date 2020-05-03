@@ -27,5 +27,7 @@ if ttl = env.("DEFAULT_TTL") do
 end
 
 if redis_url = env.("REDIS_URL") do
-  config :flash, redis_url: redis_url
+  config :flash,
+    secrets_store: Flash.Secrets.Store.Redis,
+    redis_url: redis_url
 end

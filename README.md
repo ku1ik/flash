@@ -19,7 +19,7 @@ Optional env variables:
 
 - `ENCRYPTION_KEY` - encryption key, 32 chars long. Default: first 32 chars of `SECRET_KEY_BASE` are used as encryption key
 - `PORT` - HTTP listener port number. Default: 4000
-- `REDIS_URL` - Redis server to use for secrets storage. Default: redis://localhost:6379/0
+- `REDIS_URL` - Redis server to use for secrets storage. Default: none
 - `URL_SCHEME` - scheme for URL generation. Default: https
 - `URL_HOST` - host for URL generation. Default: localhost
 - `URL_PORT` - port for URL generation. Default: 443

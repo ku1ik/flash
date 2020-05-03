@@ -4,13 +4,18 @@ defmodule Flash.Application do
   @moduledoc false
 
   use Application
+  require Logger
 
   def start(_type, _args) do
+    store_child_spec = Flash.Secrets.store_child_spec()
+
+    Logger.info("Using #{store_child_spec.id} for secrets storage")
+
     children = [
       # Start the Telemetry supervisor
       FlashWeb.Telemetry,
       # Start secrets store
-      Flash.Secrets.store_child_spec(),
+      store_child_spec,
       # Start the PubSub system
       {Phoenix.PubSub, name: Flash.PubSub},
       # Start rate limiter

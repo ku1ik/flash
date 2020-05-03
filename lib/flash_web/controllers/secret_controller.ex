@@ -30,6 +30,7 @@ defmodule FlashWeb.SecretController do
 
       {:error, :invalid} ->
         conn
+        |> put_status(422)
         |> assign(:error, true)
         |> new(%{})
     end
@@ -43,7 +44,7 @@ defmodule FlashWeb.SecretController do
       |> assign_active_secret_ids()
       |> render("preview.html", id: id, url: url)
     else
-      render(conn, "not_found.html")
+      not_found(conn)
     end
   end
 
@@ -52,8 +53,14 @@ defmodule FlashWeb.SecretController do
       Secrets.burn_secret!(id)
       render(conn, "show.html", secret: text)
     else
-      render(conn, "not_found.html")
+      not_found(conn)
     end
+  end
+
+  defp not_found(conn) do
+    conn
+    |> put_status(404)
+    |> render("not_found.html")
   end
 
   defp save_secret_id(conn, id) do

@@ -3,7 +3,7 @@ defmodule FlashWeb.Router do
   import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "text"]
     plug :fetch_session
     plug :fetch_flash
     plug :put_secure_browser_headers

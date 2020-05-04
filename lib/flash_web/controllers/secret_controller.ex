@@ -17,22 +17,65 @@ defmodule FlashWeb.SecretController do
     )
   end
 
-  def create(conn, %{"secret" => %{"text" => text} = secret}) do
-    ttl = String.to_integer(secret["ttl"] || "3600")
+  def create(conn, params) do
+    secret = to_string(params["secret"])
 
-    case Secrets.add_secret(text, ttl) do
-      {:ok, id} ->
+    with {:ok, ttl} <- parse_ttl(params["ttl"]),
+         {:ok, id} <- Secrets.add_secret(secret, ttl) do
+        on_created(conn, id, ttl)
+    else
+      {:error, {:invalid, field}} ->
+        on_invalid(conn, field)
+    end
+  end
+
+  defp parse_ttl(nil), do: {:ok, 3600}
+
+  defp parse_ttl(ttl) when is_integer(ttl), do: {:ok, ttl}
+
+  defp parse_ttl(ttl) do
+    case Integer.parse(to_string(ttl)) do
+      {ttl, ""} ->
+        {:ok, ttl}
+
+      _ ->
+        {:error, {:invalid, :ttl}}
+    end
+  end
+
+  defp on_created(conn, id, ttl) do
+    case get_format(conn) do
+      "html" ->
         conn
         |> save_secret_id(id)
         |> save_default_ttl(ttl)
         |> put_flash(:info, "Your secret was securely saved.")
         |> redirect(to: Routes.secret_path(conn, :preview, id))
 
-      {:error, :invalid} ->
+      _ ->
+        conn
+        |> put_status(201)
+        |> text(Routes.secret_url(conn, :preview, id) <> "\n")
+    end
+  end
+
+  @error_messages %{
+    secret: "Secret can't be blank",
+    ttl: "TTL is invalid"
+  }
+
+  defp on_invalid(conn, field) do
+    case get_format(conn) do
+      "html" ->
         conn
         |> put_status(422)
-        |> assign(:error, true)
+        |> assign(:error, @error_messages[field])
         |> new(%{})
+
+      _ ->
+        conn
+        |> put_status(422)
+        |> text("Error: #{@error_messages[field]}")
     end
   end
 

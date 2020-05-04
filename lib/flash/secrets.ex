@@ -9,7 +9,7 @@ defmodule Flash.Secrets do
     if valid?(text) do
       {:ok, do_add_secret(text, ttl)}
     else
-      {:error, :invalid}
+      {:error, {:invalid, :secret}}
     end
   end
 

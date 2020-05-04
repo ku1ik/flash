@@ -6,11 +6,11 @@ defmodule FlashWeb.SecretControllerTest do
 
     assert html_response(conn_1, 200) =~ ~r/create secret link/i
 
-    conn_1 = post(conn_1, "/", secret: %{text: " ", ttl: "3600"})
+    conn_1 = post(conn_1, "/", secret: " ", ttl: "3600")
 
     assert html_response(conn_1, 422) =~ ~r/create secret link/i
 
-    conn_1 = post(conn_1, "/", secret: %{text: "hush hush", ttl: "3600"})
+    conn_1 = post(conn_1, "/", secret: "hush hush", ttl: "3600")
 
     secret_url = redirected_to(conn_1, 302)
 

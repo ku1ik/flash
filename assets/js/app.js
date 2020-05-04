@@ -47,7 +47,7 @@ if (urlElement) {
     })
 }
 
-let secretTextInput = document.getElementById("secret_text");
+let secretTextInput = document.getElementById("secret");
 
 if (secretTextInput) {
     secretTextInput.addEventListener('keydown', function(e) {

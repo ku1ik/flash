@@ -10,11 +10,11 @@ defmodule Flash.SecretsTest do
     end
 
     test "add_secret/2 returns error when secret is blank or too big" do
-      assert {:error, :invalid} = Secrets.add_secret("", 5)
-      assert {:error, :invalid} = Secrets.add_secret(" ", 5)
+      assert {:error, {:invalid, :secret}} = Secrets.add_secret("", 5)
+      assert {:error, {:invalid, :secret}} = Secrets.add_secret(" ", 5)
 
       big_secret = Stream.cycle(['.']) |> Enum.take(100_000) |> List.to_string()
-      assert {:error, :invalid} = Secrets.add_secret(big_secret, 5)
+      assert {:error, {:invalid, :secret}} = Secrets.add_secret(big_secret, 5)
     end
 
     test "get_secret/1 returns nil for non-existing secret" do

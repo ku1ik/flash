@@ -38,6 +38,18 @@ defmodule FlashWeb.SecretController do
       {ttl, ""} ->
         {:ok, ttl}
 
+      {ttl, "s"} ->
+        {:ok, ttl}
+
+      {ttl, "m"} ->
+        {:ok, ttl * 60}
+
+      {ttl, "h"} ->
+        {:ok, ttl * 3600}
+
+      {ttl, "d"} ->
+        {:ok, ttl * 86400}
+
       _ ->
         {:error, {:invalid, :ttl}}
     end

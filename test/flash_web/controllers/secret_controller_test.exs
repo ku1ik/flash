@@ -53,10 +53,12 @@ defmodule FlashWeb.SecretControllerTest do
       assert text_response(conn, 201) =~ ~r/^http:/i
       assert ttl_header(conn) == 3600
 
-      conn = post(build_conn(), "/?_format=text", secret: "hush hush", ttl: "60")
+      for {ttl, secs} <- [{"60", 60}, {"30s", 30}, {"2m", 120}, {"3h", 10800}, {"4d", 345600}] do
+        conn = post(build_conn(), "/?_format=text", secret: "hush hush", ttl: ttl)
 
-      assert text_response(conn, 201) =~ ~r/^http:/i
-      assert ttl_header(conn) == 60
+        assert text_response(conn, 201) =~ ~r/^http:/i
+        assert ttl_header(conn) == secs
+      end
     end
 
     defp ttl_header(conn) do

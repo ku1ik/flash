@@ -20,7 +20,7 @@ defmodule FlashWeb.SecretController do
   def create(conn, params) do
     secret = to_string(params["secret"])
 
-    with {:ok, ttl} <- parse_ttl(params["ttl"]),
+    with {:ok, ttl} <- parse_ttl(params["ttl"] || get_default_ttl(conn)),
          {:ok, id} <- Secrets.add_secret(secret, ttl) do
         on_created(conn, id, ttl)
     else
@@ -28,8 +28,6 @@ defmodule FlashWeb.SecretController do
         on_invalid(conn, field)
     end
   end
-
-  defp parse_ttl(nil), do: {:ok, 3600}
 
   defp parse_ttl(ttl) when is_integer(ttl), do: {:ok, ttl}
 

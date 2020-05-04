@@ -42,7 +42,7 @@ defmodule FlashWeb.SecretControllerTest do
 
     test "text format requests (curl etc)" do
       # Example usage with curl, with reading of secret from STDIN:
-      #   curl -s -F 'secret=<-' -F ttl=3600 http://localhost:4000\?_format=text
+      #   curl -s -F 'secret=<-' -F ttl=1h http://localhost:4000\?_format=text
 
       conn = post(build_conn(), "/?_format=text", secret: " ")
 

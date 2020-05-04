@@ -55,6 +55,7 @@ defmodule FlashWeb.SecretController do
       _ ->
         conn
         |> put_status(201)
+        |> put_resp_header("x-secret-ttl", to_string(ttl))
         |> text(Routes.secret_url(conn, :preview, id) <> "\n")
     end
   end

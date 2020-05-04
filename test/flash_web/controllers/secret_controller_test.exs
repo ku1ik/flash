@@ -44,17 +44,25 @@ defmodule FlashWeb.SecretControllerTest do
       # Example usage with curl, with reading of secret from STDIN:
       #   curl -s -F 'secret=<-' -F ttl=3600 http://localhost:4000\?_format=text
 
-      conn_1 = post(build_conn(), "/?_format=text", secret: " ")
+      conn = post(build_conn(), "/?_format=text", secret: " ")
 
-      assert text_response(conn_1, 422) =~ ~r/blank/i
+      assert text_response(conn, 422) =~ ~r/blank/i
 
-      conn_2 = post(build_conn(), "/?_format=text", secret: "hush hush")
+      conn = post(build_conn(), "/?_format=text", secret: "hush hush")
 
-      assert text_response(conn_2, 201) =~ ~r/^http:/i
+      assert text_response(conn, 201) =~ ~r/^http:/i
+      assert ttl_header(conn) == 3600
 
-      conn_3 = post(build_conn(), "/?_format=text", secret: "hush hush", ttl: "3600")
+      conn = post(build_conn(), "/?_format=text", secret: "hush hush", ttl: "60")
 
-      assert text_response(conn_3, 201) =~ ~r/^http:/i
+      assert text_response(conn, 201) =~ ~r/^http:/i
+      assert ttl_header(conn) == 60
+    end
+
+    defp ttl_header(conn) do
+      with {_, ttl} <- List.keyfind(conn.resp_headers, "x-secret-ttl", 0) do
+        String.to_integer(ttl)
+      end
     end
   end
 end

@@ -17,6 +17,12 @@ defmodule Flash.SecretsTest do
       assert {:error, {:invalid, :secret}} = Secrets.add_secret(big_secret, 5)
     end
 
+    test "add_secret/2 returns error when ttl is not in 1..604800 seconds range" do
+      for ttl <- [-1, 0, 604801] do
+        assert Secrets.add_secret("sauce", ttl) == {:error, {:invalid, :ttl}}
+      end
+    end
+
     test "get_secret/1 returns nil for non-existing secret" do
       assert Secrets.get_secret("a1b2c3") == nil
     end

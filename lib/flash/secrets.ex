@@ -5,16 +5,27 @@ defmodule Flash.Secrets do
 
   def store_child_spec, do: store().child_spec()
 
-  def add_secret(text, ttl \\ nil) do
-    if valid?(text) do
-      {:ok, do_add_secret(text, ttl)}
+  def add_secret(secret, ttl) do
+    with :ok <- validate_secret(secret),
+         :ok <- validate_ttl(ttl) do
+      {:ok, do_add_secret(secret, ttl)}
+    end
+  end
+
+  defp validate_secret(secret) do
+    if String.trim(secret) != "" && String.length(secret) < 100_000 do
+      :ok
     else
       {:error, {:invalid, :secret}}
     end
   end
 
-  defp valid?(text) do
-    String.trim(text) != "" && String.length(text) < 100_000
+  defp validate_ttl(ttl) do
+    if ttl >= 1 && ttl <= 604800 do
+      :ok
+    else
+      {:error, {:invalid, :ttl}}
+    end
   end
 
   defp do_add_secret(plain_text, ttl) do

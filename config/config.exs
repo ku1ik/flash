@@ -21,14 +21,14 @@ config :flash,
   admin_username: "admin",
   admin_password: "admin",
   ttl_options: [
-    {"5 minutes", "5m"},
-    {"30 minutes", "30m"},
-    {"1 hour", "1h"},
-    {"4 hours", "4h"},
-    {"12 hours", "12h"},
-    {"1 day", "1d"},
-    {"3 days", "3d"},
-    {"7 days", "7d"}
+    {"5 minutes", 300},
+    {"30 minutes", 1800},
+    {"1 hour", 3600},
+    {"4 hours", 14400},
+    {"12 hours", 43200},
+    {"1 day", 86400},
+    {"3 days", 259200},
+    {"7 days", 604800}
   ],
   default_ttl: 3600
 

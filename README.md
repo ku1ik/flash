@@ -8,12 +8,9 @@ Keep the secrets out of emails and chat history!
 
 ## Configuration
 
-Required env variables:
+Following env variables can be used to configure the service:
 
-- `SECRET_KEY_BASE` - base secret token for encryption/signing, min. 64 chars long
-
-Optional env variables:
-
+- `SECRET_KEY_BASE` - base secret token for encryption/signing, min. 64 chars long. Default: random key generated on boot
 - `ENCRYPTION_KEY` - encryption key, 32 chars long. Default: first 32 chars of `SECRET_KEY_BASE` are used as encryption key
 - `PORT` - HTTP listener port number. Default: 4000
 - `REDIS_URL` - Redis server to use for secrets storage. Default: none

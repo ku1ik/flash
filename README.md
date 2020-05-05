@@ -4,7 +4,17 @@ Keep the secrets out of emails and chat history!
 
 ## Running
 
-    docker run -p 80:4000 sickill/flash
+You can run the service in, let's call it, "demo mode" like this:
+
+    docker run -p 4000:4000 -e URL_SCHEME=http -e URL_PORT=4000 sickill/flash
+
+This is INSECURE (no HTTPS and no persistence), so do this only if you want to play with it locally.
+
+Recommended, "production" setup would be to run it like this:
+
+    docker run -p 4000:4000 -e URL_HOST=flash.example.com -e SECRET_KEY_BASE=<64-char-random-token> -e REDIS_URL=redis://<redis-address> sickill/flash
+
+The above assumes the service is running behind a load balancer/proxy/front webserver which handles HTTPS.
 
 ## Configuration
 

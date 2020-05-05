@@ -1,13 +1,10 @@
 # Flash
 
-To start your Phoenix server:
+Keep the secrets out of emails and chat history!
 
-  * Setup the project with `mix setup`
-  * Start Phoenix endpoint with `mix phx.server`
+## Running
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+    docker run -p 80:4000 sickill/flash
 
 ## Configuration
 
@@ -27,10 +24,14 @@ Optional env variables:
 - `ADMIN_USERNAME` - basic auth username for access to admin section. Default: admin
 - `ADMIN_PASSWORD` - password for above. Default: none
 
-## Learn more
+## Development
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+1. Install Erlang, Elixir and Node.js
+2. `mix setup`
+3. `mix test`
+4. `iex -S mix phx.server`
+5. Visit [`localhost:4000`](http://localhost:4000) from your browser
+
+## Security
+
+TODO: describe implemented security means and considerations

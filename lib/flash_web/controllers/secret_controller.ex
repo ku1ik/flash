@@ -93,7 +93,7 @@ defmodule FlashWeb.SecretController do
   def preview(conn, %{"id" => id}) do
     url = Routes.secret_url(conn, :preview, id)
 
-    if Secrets.get_secret(id) do
+    if Secrets.secret_exists?(id) do
       conn
       |> assign_active_secret_ids()
       |> render("preview.html", id: id, url: url)
@@ -153,7 +153,7 @@ defmodule FlashWeb.SecretController do
         ids =
           ids
           |> String.split("|")
-          |> Enum.filter(&Secrets.get_secret/1)
+          |> Enum.filter(&Secrets.secret_exists?/1)
 
         case ids do
           [] ->

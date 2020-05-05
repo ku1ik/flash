@@ -44,6 +44,8 @@ defmodule Flash.Secrets do
     end
   end
 
+  def secret_exists?(id), do: !!store().get_secret(id)
+
   def burn_secret!(id) do
     store().delete_secret(id)
   end

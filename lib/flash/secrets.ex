@@ -40,7 +40,10 @@ defmodule Flash.Secrets do
 
   def get_secret(id) do
     if payload = store().get_secret(id) do
-      decrypt(payload)
+      secret = decrypt(payload)
+      burn_secret!(id)
+
+      secret
     end
   end
 

@@ -104,7 +104,6 @@ defmodule FlashWeb.SecretController do
 
   def reveal(conn, %{"id" => id}) do
     if text = Secrets.get_secret(id) do
-      Secrets.burn_secret!(id)
       render(conn, "show.html", secret: text)
     else
       not_found(conn)

@@ -127,7 +127,11 @@ pre {
 }
 
 hr {
-    margin: 2em 0 2em 0;
+    margin: 3em 0 3em 0;
+    border-top: 1px dotted #666;
+    border-bottom: 1px dotted #666;
+    border-left: none;
+    border-right: none;
 }
 
 form {

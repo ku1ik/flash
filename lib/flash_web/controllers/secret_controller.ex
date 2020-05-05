@@ -110,6 +110,14 @@ defmodule FlashWeb.SecretController do
     end
   end
 
+  def delete(conn, %{"id" => id}) do
+    Secrets.burn_secret!(id)
+
+    conn
+    |> put_flash(:info, "The secret was burned.")
+    |> redirect(to: Routes.secret_path(conn, :new))
+  end
+
   defp not_found(conn) do
     conn
     |> put_status(404)

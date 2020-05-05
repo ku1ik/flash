@@ -40,6 +40,28 @@ defmodule FlashWeb.SecretControllerTest do
       assert html_response(conn_1, 404)
     end
 
+    test "burning a secret" do
+      conn_1 = post(build_conn(), "/", secret: "hush hush")
+
+      secret_url = redirected_to(conn_1, 302)
+
+      conn_1 = delete(conn_1, secret_url)
+
+      url = redirected_to(conn_1, 302)
+
+      conn_1 = get(conn_1, url)
+
+      assert html_response(conn_1, 200) =~ ~r/burned/i
+
+      conn_1 = get(conn_1, secret_url)
+
+      assert html_response(conn_1, 404)
+
+      conn_2 = get(build_conn(), secret_url)
+
+      assert html_response(conn_2, 404)
+    end
+
     test "text format requests (curl etc)" do
       # Example usage with curl, with reading of secret from STDIN:
       #   curl -s -F 'secret=<-' -F ttl=1h http://localhost:4000\?_format=text

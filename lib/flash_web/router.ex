@@ -20,6 +20,7 @@ defmodule FlashWeb.Router do
     post "/", SecretController, :create
     get "/s/:id", SecretController, :preview
     post "/s/:id", SecretController, :reveal
+    delete "/s/:id", SecretController, :delete
   end
 
   # Other scopes may use custom stacks.

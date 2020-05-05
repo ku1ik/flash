@@ -12,8 +12,10 @@ defmodule Flash.Secrets do
     end
   end
 
+  @max_length 64 * 1024
+
   defp validate_secret(secret) do
-    if String.trim(secret) != "" && String.length(secret) < 100_000 do
+    if String.trim(secret) != "" && String.length(secret) <= @max_length do
       :ok
     else
       {:error, {:invalid, :secret}}

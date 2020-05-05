@@ -13,7 +13,7 @@ defmodule Flash.SecretsTest do
       assert {:error, {:invalid, :secret}} = Secrets.add_secret("", 5)
       assert {:error, {:invalid, :secret}} = Secrets.add_secret(" ", 5)
 
-      big_secret = Stream.cycle(['.']) |> Enum.take(100_000) |> List.to_string()
+      big_secret = Stream.cycle(['.']) |> Enum.take(65537) |> List.to_string()
       assert {:error, {:invalid, :secret}} = Secrets.add_secret(big_secret, 5)
     end
 

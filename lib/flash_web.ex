@@ -43,8 +43,7 @@ defmodule FlashWeb do
 
   def live_view do
     quote do
-      use Phoenix.LiveView,
-        layout: {FlashWeb.LayoutView, "live.html"}
+      use Phoenix.LiveView
 
       unquote(view_helpers())
     end

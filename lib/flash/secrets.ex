@@ -33,13 +33,13 @@ defmodule Flash.Secrets do
   defp do_add_secret(plain_text, ttl) do
     id = Nanoid.generate()
     payload = encrypt(plain_text)
-    store().put_secret(id, payload, ttl)
+    store().put(id, payload, ttl)
 
     id
   end
 
   def get_secret(id) do
-    if payload = store().get_secret(id) do
+    if payload = store().get(id) do
       secret = decrypt(payload)
       burn_secret!(id)
 
@@ -47,10 +47,10 @@ defmodule Flash.Secrets do
     end
   end
 
-  def secret_exists?(id), do: !!store().get_secret(id)
+  def secret_exists?(id), do: !!store().get(id)
 
   def burn_secret!(id) do
-    store().delete_secret(id)
+    store().delete(id)
   end
 
   @aad "AES256GCM"

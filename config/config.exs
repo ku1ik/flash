@@ -17,7 +17,7 @@ config :flash, FlashWeb.Endpoint,
 
 config :flash,
   encryption_key: "lFWk6IgHHqLGq/13wHOjfMRp8hrtzO08",
-  secrets_store: Flash.Secrets.Store.Cachex,
+  secrets_store: Flash.KvStore.Cachex,
   admin_username: "admin",
   admin_password: "admin",
   ttl_options: [

@@ -29,6 +29,6 @@ end
 
 if redis_url = env.("REDIS_URL") do
   config :flash,
-    secrets_store: Flash.Secrets.Store.Redis,
+    secrets_store: Flash.KvStore.Redis,
     redis_url: redis_url
 end

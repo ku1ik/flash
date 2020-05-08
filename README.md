@@ -2,19 +2,39 @@
 
 Keep the secrets out of emails and chat history!
 
-## Running
+## Deployment
 
-You can run the service in, let's call it, "demo mode" like this:
+### Insecure, for testing purposes only
+
+You can run flash locally, in insecure "demo mode" like this:
 
     docker run -p 4000:4000 -e URL_SCHEME=http -e URL_PORT=4000 sickill/flash
 
-This is INSECURE (no HTTPS and no persistence), so do this only if you want to play with it locally.
+Open [http://localhost:4000](http://localhost:4000) to access the app.
+
+This is INSECURE (no HTTPS and no persistence), so do this only if you want
+to play with it locally.
+
+### Behind HTTPS-enabled proxy
 
 Recommended, "production" setup would be to run it like this:
 
-    docker run -p 4000:4000 -e URL_HOST=flash.example.com -e SECRET_KEY_BASE=<64-char-random-token> -e REDIS_URL=redis://<redis-address> sickill/flash
+    docker run -p 4000:4000 -e URL_HOST=flash.example.com sickill/flash
 
-The above assumes the service is running behind a load balancer/proxy/front webserver which handles HTTPS.
+The above assumes that there's a proxy/web server configured for
+`flash.example.com` domain, which handles HTTPS and proxies all requests to
+port 4000 of the container.
+
+NOTE: This is minimal secure setup, however stored secrets are not persisted
+and they will be lost upon container restart. See [Persistence](#persistence)
+below for more robust setup.
+
+### Automatic HTTPS with Caddy web server
+
+You can get HTTPS up and running very easily with [Caddy web
+server](https://caddyserver.com/). Caddy handles Let's Encrypt certificate
+requesting/renewal automatically. Check out included [docker-compose
+file](docker-compose.yml) for example setup.
 
 ## Configuration
 
@@ -30,6 +50,10 @@ Following env variables can be used to configure the service:
 - `DEFAULT_TTL` - default value for TTL input, in seconds. Default: 3600
 - `ADMIN_USERNAME` - basic auth username for access to admin section. Default: admin
 - `ADMIN_PASSWORD` - password for above. Default: none
+
+## Persistence
+
+TODO: document
 
 ## Development
 

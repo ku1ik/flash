@@ -1,0 +1,21 @@
+version: '3'
+
+volumes:
+  caddy_config:
+  caddy_data:
+
+services:
+  flash:
+    image: sickill/flash
+    environment:
+      - URL_HOST=localhost # <- change "localhost" to your domain
+
+  caddy:
+    image: caddy:2
+    command: caddy reverse-proxy --from localhost --to flash:4000 # <- change "localhost" to your domain
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - caddy_config:/config
+      - caddy_data:/data

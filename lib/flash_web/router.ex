@@ -45,8 +45,9 @@ defmodule FlashWeb.Router do
     import Plug.Crypto
 
     with {user, pass} <- parse_basic_auth(conn),
+         pass_sha1 = Base.encode16(:crypto.hash(:sha, pass), case: :lower),
          true <- secure_compare(user, Application.fetch_env!(:flash, :admin_username)),
-         true <- secure_compare(pass, Application.fetch_env!(:flash, :admin_password)) do
+         true <- secure_compare(pass_sha1, Application.fetch_env!(:flash, :admin_password_sha1)) do
       conn
     else
       _ -> conn |> request_basic_auth() |> halt()

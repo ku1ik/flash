@@ -49,7 +49,7 @@ Following env variables can be used to configure the service:
 - `URL_PORT` - port for URL generation. Default: 443
 - `DEFAULT_TTL` - default value for TTL input, in seconds. Default: 3600
 - `ADMIN_USERNAME` - basic auth username for access to admin section. Default: admin
-- `ADMIN_PASSWORD` - password for above. Default: none
+- `ADMIN_PASSWORD_SHA1` - SHA1 hex digest of the password for above user. Default: none
 
 ## Persistence
 

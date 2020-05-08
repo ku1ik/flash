@@ -14,8 +14,6 @@ config :flash, FlashWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
   force_ssl: [hsts: true, host: nil, rewrite_on: [:x_forwarded_proto]]
 
-config :flash, redis_url: "redis://localhost:6379"
-
 # Do not print debug messages in production
 config :logger, level: :info
 

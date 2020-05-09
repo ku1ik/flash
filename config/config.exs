@@ -34,7 +34,7 @@ config :flash,
 
 config :phoenix,
   json_library: Jason,
-  filter_parameters: ["password", "text"]
+  filter_parameters: ["password", "secret"]
 
 # Configures Elixir's Logger
 config :logger, :console,

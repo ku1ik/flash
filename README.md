@@ -66,3 +66,9 @@ TODO: document
 ## Security
 
 TODO: describe implemented security means and considerations
+
+## License
+
+Copyright 2020 Marcin Kulik
+
+This project is licensed under the [Apache License, Version 2.0](LICENSE).

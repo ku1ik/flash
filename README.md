@@ -2,6 +2,14 @@
 
 Keep the secrets out of emails and chat history!
 
+## Security
+
+TODO: describe implemented security means and considerations
+
+## Persistence
+
+TODO: document
+
 ## Deployment
 
 ### Insecure, for testing purposes only
@@ -51,21 +59,18 @@ Following env variables can be used to configure the service:
 - `ADMIN_USERNAME` - basic auth username for access to admin section. Default: admin
 - `ADMIN_PASSWORD_SHA1` - SHA1 hex digest of the password for above user. Default: none
 
-## Persistence
-
-TODO: document
-
 ## Development
 
-1. Install Erlang, Elixir and Node.js
-2. `mix setup`
-3. `mix test`
-4. `iex -S mix phx.server`
-5. Visit [`localhost:4000`](http://localhost:4000) from your browser
+This project is built with [Elixir language](https://elixir-lang.org/) and
+[Phoenix web framework](https://www.phoenixframework.org/).
 
-## Security
+To start developing:
 
-TODO: describe implemented security means and considerations
+1. Install Erlang, Elixir and Node.js for your platform
+2. Run `mix setup` to fetch and build dependencies
+3. Run `mix test` to run the test suite
+4. Run `iex -S mix phx.server` to start `iex` shell with embedded web server
+5. Visit [`localhost:4000`](http://localhost:4000) from your browser to access the site
 
 ## License
 

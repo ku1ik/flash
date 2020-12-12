@@ -77,6 +77,14 @@ if redis_url = env.("REDIS_URL") do
     redis_url: redis_url
 end
 
+if s3_bucket = env.("S3_BUCKET") do
+  config :flash, secrets_store: Flash.KvStore.S3
+
+  config :flash, Flash.KvStore.S3,
+    bucket: s3_bucket,
+    prefix: env.("S3_PREFIX")
+end
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

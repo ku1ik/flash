@@ -42,13 +42,16 @@ defmodule Flash.MixProject do
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
+      {:jason, "~> 1.2"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:cachex, "~> 3.2"},
       {:nanoid, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:plug_attack, "~> 0.4.2"},
       {:remote_ip, "~> 0.2.1"},
+      {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.1"},
+      {:hackney, "~> 1.9"},
       {:redix, "~> 0.10.5"}
     ]
   end

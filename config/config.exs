@@ -46,6 +46,10 @@ config :logger, compile_time_purge_matching: [[application: :remote_ip]]
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :ex_aws,
+  json_codec: Jason,
+  region: {:system, "AWS_REGION"}
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

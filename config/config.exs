@@ -19,7 +19,8 @@ config :flash,
   encryption_key: "lFWk6IgHHqLGq/13wHOjfMRp8hrtzO08",
   secrets_store: Flash.KvStore.Cachex,
   admin_username: "admin",
-  admin_password_sha1: "d033e22ae348aeb5660fc2140aec35850c4da997", # "admin"
+  # "admin"
+  admin_password_sha1: "d033e22ae348aeb5660fc2140aec35850c4da997",
   ttl_options: [
     {"5 minutes", 300},
     {"30 minutes", 1800},
@@ -27,8 +28,8 @@ config :flash,
     {"4 hours", 14400},
     {"12 hours", 43200},
     {"1 day", 86400},
-    {"3 days", 259200},
-    {"7 days", 604800}
+    {"3 days", 259_200},
+    {"7 days", 604_800}
   ],
   default_ttl: 3600
 

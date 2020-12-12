@@ -4,7 +4,7 @@ env = &System.get_env/1
 
 secret_key_base =
   env.("SECRET_KEY_BASE") ||
-  binary_part(Base.encode64(:crypto.strong_rand_bytes(64)), 0, 64)
+    binary_part(Base.encode64(:crypto.strong_rand_bytes(64)), 0, 64)
 
 config :flash, FlashWeb.Endpoint,
   http: [

@@ -67,8 +67,8 @@ config :flash,
     {"4 hours", 14400},
     {"12 hours", 43200},
     {"1 day", 86400},
-    {"3 days", 259200},
-    {"7 days", 604800}
+    {"3 days", 259_200},
+    {"7 days", 604_800}
   ]
 
 if redis_url = env.("REDIS_URL") do

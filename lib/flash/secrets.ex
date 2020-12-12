@@ -23,7 +23,7 @@ defmodule Flash.Secrets do
   end
 
   defp validate_ttl(ttl) do
-    if ttl >= 1 && ttl <= 604800 do
+    if ttl >= 1 && ttl <= 604_800 do
       :ok
     else
       {:error, {:invalid, :ttl}}

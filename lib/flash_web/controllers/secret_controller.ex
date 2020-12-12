@@ -22,7 +22,7 @@ defmodule FlashWeb.SecretController do
 
     with {:ok, ttl} <- parse_ttl(params["ttl"] || get_default_ttl(conn)),
          {:ok, id} <- Secrets.add_secret(secret, ttl) do
-        on_created(conn, id, ttl)
+      on_created(conn, id, ttl)
     else
       {:error, {:invalid, field}} ->
         on_invalid(conn, field)

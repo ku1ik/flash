@@ -3,7 +3,7 @@ defmodule Flash.KvStore.Redis do
 
   @impl true
   def child_spec do
-    redis_url = Application.get_env(:flash, :redis_url)
+    redis_url = Keyword.fetch!(Application.fetch_env!(:flash, __MODULE__), :url)
 
     %{id: __MODULE__, start: {Redix, :start_link, [redis_url, [name: __MODULE__]]}}
   end

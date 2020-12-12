@@ -28,9 +28,8 @@ if ttl = env.("DEFAULT_TTL") do
 end
 
 if redis_url = env.("REDIS_URL") do
-  config :flash,
-    secrets_store: Flash.KvStore.Redis,
-    redis_url: redis_url
+  config :flash, secrets_store: Flash.KvStore.Redis
+  config :flash, Flash.KvStore.Redis, url: redis_url
 end
 
 if s3_bucket = env.("S3_BUCKET") do

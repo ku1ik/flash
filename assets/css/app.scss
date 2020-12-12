@@ -145,3 +145,7 @@ form {
         display: block;
     }
 }
+
+.secret + p.hint {
+    margin-top: -1em;
+}

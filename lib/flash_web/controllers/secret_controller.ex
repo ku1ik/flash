@@ -71,7 +71,7 @@ defmodule FlashWeb.SecretController do
   end
 
   @error_messages %{
-    secret: "Secret can't be blank",
+    secret: "Nothing to hide?",
     ttl: "TTL is invalid"
   }
 

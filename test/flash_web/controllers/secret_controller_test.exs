@@ -68,7 +68,7 @@ defmodule FlashWeb.SecretControllerTest do
 
       conn = post(build_conn(), "/?_format=text", secret: " ")
 
-      assert text_response(conn, 422) =~ ~r/blank/i
+      assert text_response(conn, 422) =~ ~r/nothing to hide/i
 
       conn = post(build_conn(), "/?_format=text", secret: "hush hush")
 

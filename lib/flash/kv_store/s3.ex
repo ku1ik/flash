@@ -18,7 +18,7 @@ defmodule Flash.KvStore.S3 do
     attrs = %{value: value, expires_at: expires_at}
     req = S3.put_object(cfg(:bucket), path(key), Jason.encode!(attrs))
 
-    with {:ok, _} <- ExAws.request(req) do
+    with {:ok, _} <- request(req) do
       :ok
     end
   end
@@ -27,7 +27,7 @@ defmodule Flash.KvStore.S3 do
   def get(key) do
     req = S3.get_object(cfg(:bucket), path(key))
 
-    case ExAws.request(req) do
+    case request(req) do
       {:ok, %{body: body}} ->
         %{"value" => value, "expires_at" => expires_at} = Jason.decode!(body)
         {:ok, expires_at, _} = DateTime.from_iso8601(expires_at)
@@ -49,8 +49,19 @@ defmodule Flash.KvStore.S3 do
   def delete(key) do
     req = S3.delete_object(cfg(:bucket), path(key))
 
-    with {:ok, _} <- ExAws.request(req) do
+    with {:ok, _} <- request(req) do
       :ok
+    end
+  end
+
+  defp request(req) do
+    ExAws.request(req, opts())
+  end
+
+  defp opts do
+    case cfg(:host) do
+      nil -> []
+      host -> [host: host]
     end
   end
 

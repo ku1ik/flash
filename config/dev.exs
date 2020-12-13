@@ -81,7 +81,8 @@ if s3_bucket = env.("S3_BUCKET") do
 
   config :flash, Flash.KvStore.S3,
     bucket: s3_bucket,
-    prefix: env.("S3_PREFIX")
+    prefix: env.("S3_PREFIX"),
+    host: env.("S3_HOST")
 end
 
 # Do not include metadata nor timestamps in development logs

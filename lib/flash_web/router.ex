@@ -11,10 +11,6 @@ defmodule FlashWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   scope "/", FlashWeb do
     pipe_through :browser
 
@@ -24,11 +20,6 @@ defmodule FlashWeb.Router do
     post "/s/:id", SecretController, :reveal
     delete "/s/:id", SecretController, :delete
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", FlashWeb do
-  #   pipe_through :api
-  # end
 
   scope "/health", FlashWeb do
     get "/", HealthController, :check

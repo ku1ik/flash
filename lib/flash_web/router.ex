@@ -3,6 +3,7 @@ defmodule FlashWeb.Router do
   import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
+    plug Plug.SSL, rewrite_on: [:x_forwarded_proto], hsts: true, host: nil
     plug :accepts, ["html", "text"]
     plug :fetch_session
     plug :fetch_flash

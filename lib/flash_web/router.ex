@@ -30,6 +30,10 @@ defmodule FlashWeb.Router do
   #   pipe_through :api
   # end
 
+  scope "/health", FlashWeb do
+    get "/", HealthController, :check
+  end
+
   pipeline :admin do
     plug :browser
     plug :auth

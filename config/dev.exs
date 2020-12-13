@@ -69,7 +69,9 @@ config :flash,
     {"1 day", 86400},
     {"3 days", 259_200},
     {"7 days", 604_800}
-  ]
+  ],
+  # "admin"
+  admin_password_sha1: "d033e22ae348aeb5660fc2140aec35850c4da997"
 
 if redis_url = env.("REDIS_URL") do
   config :flash, secrets_store: Flash.KvStore.Redis

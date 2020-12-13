@@ -1,8 +1,8 @@
 ## Builder image
 
-ARG ALPINE_VERSION=3.11.3
-ARG ERLANG_OTP_VERSION=22.2.8
-ARG ELIXIR_VERSION=1.10.2
+ARG ALPINE_VERSION=3.12.1
+ARG ERLANG_OTP_VERSION=23.1.5
+ARG ELIXIR_VERSION=1.11.2
 
 # https://github.com/hexpm/bob#docker-images
 FROM hexpm/elixir:${ELIXIR_VERSION}-erlang-${ERLANG_OTP_VERSION}-alpine-${ALPINE_VERSION} as builder

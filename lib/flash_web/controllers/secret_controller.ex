@@ -114,7 +114,7 @@ defmodule FlashWeb.SecretController do
     Secrets.burn_secret!(id)
 
     conn
-    |> put_flash(:info, "The secret was burned.")
+    |> put_flash(:info, "The secret has been burned.")
     |> redirect(to: Routes.secret_path(conn, :new))
   end
 

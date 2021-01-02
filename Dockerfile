@@ -45,6 +45,7 @@ RUN mix release
 FROM alpine:${ALPINE_VERSION}
 
 RUN apk add --no-cache \
+  tini \
   ca-certificates \
   libcrypto1.1 \
   ncurses
@@ -53,4 +54,5 @@ WORKDIR /opt/app
 
 COPY --from=builder /opt/app/_build/prod/rel/flash .
 
-CMD exec /opt/app/bin/flash start
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/opt/app/bin/flash", "start"]

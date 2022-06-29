@@ -31,7 +31,7 @@ chat.
 Every secret link contains unguessable, random token, which uniquely points
 to a secret. When the link is opened by the recipient it warns them about
 ephemeral nature of the link, and after confirmation it displays the secret
-content. At that point the secret is removed from the storage and can't be
+content. At this point the secret is removed from the storage and can't be
 retrieved from Flash ever again. It's burned after reading :)
 
 Each secret is kept in the storage for limited amount of time (TTL), which is
@@ -123,7 +123,7 @@ to have access to the encryption key and the storage database.
 
 Flash doesn't implement E2E encryption, and given the domain it operates in
 (secure transfer of sensitive data) it's recommended to be self-hosted. You
-should _not_ to use any public instances of Flash, for purposes other than
+should _not_ use any public instances of Flash, for purposes other than
 testing.
 
 ## Persistence
